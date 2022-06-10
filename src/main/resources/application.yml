@@ -3,7 +3,7 @@ spring:
     active: local
   batch:
     job:
-      names: ${job.name:NONE} # parameter ??? JOB ? ?????? ??
+      names: ${job.name:NONE} # parameter로 설정한 JOB만 수행
 
 ---
 spring:
