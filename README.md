@@ -10,3 +10,6 @@
       + BatchTestConfig 구현
       + HelloJobConfigTest 구현
       + PlainTextJobConfigTest 구현
+  4. JobParameterValidator
+      + AdvancedJobConfig 구현
+      + LocalDateParameterValidator 구현
