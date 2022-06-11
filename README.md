@@ -6,3 +6,7 @@
   2. Spring Batch 기본 프로젝트
      + 데이터 (Read,Proc,Writer) 처리
         + PlainTextJob 구현
+  3. Spring Batch TEST
+      + BatchTestConfig 구현
+      + HelloJobConfigTest 구현
+      + PlainTextJobConfigTest 구현

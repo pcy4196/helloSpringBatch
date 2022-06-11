@@ -1,7 +1,9 @@
 package com.fastcampus.helloSpringBatch.job;
 
 import com.fastcampus.helloSpringBatch.core.domain.PlainText;
+import com.fastcampus.helloSpringBatch.core.domain.ResultText;
 import com.fastcampus.helloSpringBatch.core.repository.PlainTextRepository;
+import com.fastcampus.helloSpringBatch.core.repository.ResultTextRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -29,6 +31,7 @@ public class PlainTextJobConfig {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final PlainTextRepository plainTextRepository;
+    private final ResultTextRepository resultTextRepository;
 
     @Bean("plainTextJob")
     public Job plainTextJob(Step plainTextStep) {
@@ -73,8 +76,11 @@ public class PlainTextJobConfig {
     @StepScope
     @Bean
     public ItemWriter<String> plainTextWriter() {
-        return item -> {
-            item.forEach(System.out::println);
+        return items -> {
+            items.forEach(System.out::println);     // 로그에 보여주는 로직
+            items.forEach(item -> resultTextRepository.save(new ResultText(item)));
+            // processed + item 명 전달
+
             System.out.println("=== chunk is finished");
         };
     }

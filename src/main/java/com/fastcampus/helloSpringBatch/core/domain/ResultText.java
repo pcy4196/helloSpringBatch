@@ -14,10 +14,10 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @DynamicUpdate // 일부 컬럼 값만 변경되었을때 해당 컬럼만 변경되는 쿼리 발생하게 하는 어노테이션
-@Table(name = "plain_text")
-public class PlainText {
+@Table(name = "result_text")
+public class ResultText {
 
-    public PlainText(String text) {
+    public ResultText(String text) {
         this.text = text;
     }
 
