@@ -1,3 +1,4 @@
+
 ### HelloSpringBatchApplication
 ***
 + practice spring-batch in springBoot
@@ -13,3 +14,5 @@
   4. JobParameterValidator
       + AdvancedJobConfig 구현
       + LocalDateParameterValidator 구현
+  5. JobExecutionListener
+      + AdvancedJobConfig의 jobExecutionListener Method 구현
