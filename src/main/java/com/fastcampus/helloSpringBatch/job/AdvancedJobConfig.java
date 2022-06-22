@@ -26,8 +26,8 @@ public class AdvancedJobConfig {
     private final StepBuilderFactory stepBuilderFactory;
 
     @Bean
-    public Job advancedJob(JobExecutionListener jobExecutionListener
-                            , Step advancedStep) {
+    public Job advancedJob(JobExecutionListener jobExecutionListener,
+                           Step advancedStep) {
         return jobBuilderFactory.get("advancedJob")
                 .incrementer(new RunIdIncrementer())
                 .validator(new LocalDateParameterValidator("targetDate"))
@@ -59,11 +59,32 @@ public class AdvancedJobConfig {
 
     @JobScope
     @Bean
-    public Step advancedStep(Tasklet advancedTasklet) {
+    public Step advancedStep(Tasklet advancedTasklet,
+                             StepExecutionListener stepExecutionListener) {
         return stepBuilderFactory.get("advancedStep")
+                .listener(stepExecutionListener)
                 .tasklet(advancedTasklet)
                 .build();
     }
+
+    @StepScope
+    @Bean
+    public StepExecutionListener stepExecutionListener() {
+        // stepExecutionListener 많이 사용하지는 않는 Listener
+        return new StepExecutionListener() {
+            @Override
+            public void beforeStep(StepExecution stepExecution) {
+                log.info("[stepExecutionListener#beforeStep] stepExecution is " + stepExecution.getStatus());
+            }
+
+            @Override
+            public ExitStatus afterStep(StepExecution stepExecution) {
+                log.info("[stepExecutionListener#afterStep] stepExecution is " + stepExecution.getStatus());
+                return stepExecution.getExitStatus();
+            }
+        };
+    }
+
 
     @StepScope
     @Bean
