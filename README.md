@@ -16,3 +16,5 @@
       + LocalDateParameterValidator 구현
   5. JobExecutionListener
       + AdvancedJobConfig의 jobExecutionListener Method 구현
+  6. FlatFileItemReader
+      + FlatFileJobConfig 구현(PlayerFieldSetMapper, PlayerDto)
