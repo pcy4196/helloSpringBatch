@@ -20,3 +20,5 @@
       + FlatFileJobConfig 구현(PlayerFieldSetMapper, PlayerDto)
   7. StepListener
       + AdvancedJobConfig의 stepExecutionListener Method 구현
+  8. ItemProcessorAdapter
+      + FlatFileJobConfig의 playerSalaryItemProcessorAdapter 구현
