@@ -13,11 +13,19 @@ import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.adapter.ItemProcessorAdapter;
 import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
+import org.springframework.batch.item.file.builder.FlatFileItemWriterBuilder;
+import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
+import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
+import org.yaml.snakeyaml.events.Event;
+
+import java.io.File;
+import java.io.IOException;
 
 @Configuration
 @AllArgsConstructor
@@ -37,18 +45,41 @@ public class FlatFileJobConfig {
     @JobScope
     @Bean
     public Step flatFileStep(FlatFileItemReader<PlayerDto> playerFileItemReader,
-                             ItemProcessorAdapter<PlayerDto, PlayerSalaryDto> playerSalaryItemProcessorAdapter) {
+                             ItemProcessorAdapter<PlayerDto, PlayerSalaryDto> playerSalaryItemProcessorAdapter,
+                             FlatFileItemWriter<PlayerSalaryDto> playerFileItemWriter) {
         return stepBuilderFactory.get("flatFileStep")
                 .<PlayerDto, PlayerSalaryDto>chunk(5)
                 .reader(playerFileItemReader)
                 .processor(playerSalaryItemProcessorAdapter)
 //                .writer(new ItemWriter<>() {
-//                    @Override
-//                    public void write(List<? extends PlayerSalaryDto> items) throws Exception {
-//                        items.forEach(System.out::println);
-//                    }
-//                })
-                .writer(items -> items.forEach(System.out::println))
+////                    @Override
+////                    public void write(List<? extends PlayerSalaryDto> items) throws Exception {
+////                        items.forEach(System.out::println);
+////                    }
+////                })
+////                .writer(items -> items.forEach(System.out::println));
+                .writer(playerFileItemWriter)
+                .build();
+    }
+    @StepScope
+    @Bean
+    public FlatFileItemWriter<PlayerSalaryDto> playerFileItemWriter() throws IOException {
+        BeanWrapperFieldExtractor<PlayerSalaryDto> fieldExtractor = new BeanWrapperFieldExtractor<>();
+        fieldExtractor.setNames(new String[]{"ID","firstName","lastName","salary"});
+        fieldExtractor.afterPropertiesSet();
+
+        DelimitedLineAggregator<PlayerSalaryDto> lineAggregator = new DelimitedLineAggregator<>();
+        lineAggregator.setDelimiter("\t");  // tab으로 구분값 설정
+        lineAggregator.setFieldExtractor(fieldExtractor);
+
+        // 기존의 파일을 덮어쓴다.
+        new File("player-salary-list.txt").createNewFile();
+        FileSystemResource resource = new FileSystemResource("player-salary-list.txt");
+
+        return new FlatFileItemWriterBuilder<PlayerSalaryDto>()
+                .name("playerFileItemWriter")
+                .resource(resource)
+                .lineAggregator(lineAggregator)
                 .build();
     }
 
