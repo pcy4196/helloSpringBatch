@@ -24,3 +24,5 @@
       + FlatFileJobConfig의 playerSalaryItemProcessorAdapter Method 구현  8. ItemProcessorAdapter
   9. FlatFileItemWriter
       + FlatFileJobConfig의 playerFileItemWriter Method 구현
+  10.MultiThreadStep
+      + MultiThreadStepJobConfig 구현
