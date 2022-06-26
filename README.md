@@ -26,3 +26,5 @@
       + FlatFileJobConfig의 playerFileItemWriter Method 구현
   10.MultiThreadStep
       + MultiThreadStepJobConfig 구현
+  11.ParallelStep
+     + ParallelStepJobConfig 구현
