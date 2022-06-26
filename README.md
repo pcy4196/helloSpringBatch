@@ -27,4 +27,6 @@
   10.MultiThreadStep
       + MultiThreadStepJobConfig 구현
   11.ParallelStep
-     + ParallelStepJobConfig 구현
+      + ParallelStepJobConfig 구현  
+  12.partitioning
+      + PartitioningJobConfig 구현
