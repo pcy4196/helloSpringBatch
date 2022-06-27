@@ -30,3 +30,5 @@
       + ParallelStepJobConfig 구현  
   12.partitioning
       + PartitioningJobConfig 구현
+  13.Mock,StaticMock
+      + PlayerSalaryServiceTest 구현
