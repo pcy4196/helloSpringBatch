@@ -18,7 +18,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test") // application.yml의 test 설정 사용
-@ContextConfiguration(classes = {HelloJobConfig.class, BatchTestConfig.class})
+@ContextConfiguration(classes = {HelloJobConfig.class, BatchTestConfig.class, JobLauncherTestUtils.class})
 class HelloJobConfigTest {
     @Autowired
     private JobLauncherTestUtils jobLauncherTestUtils;

@@ -24,7 +24,7 @@ import java.util.stream.IntStream;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test") // application.yml의 test 설정 사용
-@ContextConfiguration(classes = {PlainTextJobConfig.class, BatchTestConfig.class})
+@ContextConfiguration(classes = {PlainTextJobConfig.class, BatchTestConfig.class, JobLauncherTestUtils.class})
 class PlainTextJobConfigTest {
 
     @Autowired
