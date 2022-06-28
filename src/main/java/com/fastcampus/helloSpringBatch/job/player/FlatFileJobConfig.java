@@ -22,7 +22,6 @@ import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
-import org.yaml.snakeyaml.events.Event;
 
 import java.io.File;
 import java.io.IOException;

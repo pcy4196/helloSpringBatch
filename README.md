@@ -32,3 +32,4 @@
       + PartitioningJobConfig 구현
   13.Mock,StaticMock
       + PlayerSalaryServiceTest 구현
+  14.AssertFile
